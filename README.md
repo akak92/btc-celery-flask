@@ -62,7 +62,7 @@ Once the containers are up and running, to access the Flower dashboard, you need
 ```
 http://localhost:5555
 ```
-### Flask visualization
+#### Flask visualization
 
 To view the charts from a browser, go to the following URL:
 ```

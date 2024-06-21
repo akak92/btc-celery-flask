@@ -55,3 +55,9 @@ And with that last step, we have completed the installation.
 #### Flower visualization
 
 Flower is an open-source web application for monitoring and managing Celery clusters. It provides real-time information about the status of Celery workers and tasks. You can read more about it [here](https://flower.readthedocs.io/en/latest/)
+
+Once the containers are up and running, to access the Flower dashboard, you need to open a browser and go to the following URL:
+
+```
+http://localhost:5555
+```

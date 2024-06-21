@@ -1,7 +1,7 @@
 # BTC Prices with Celery and Redis
-An example of asynchronous task handling using Celery and Redis.
+An example of asynchronous behavior tasks using Celery and Redis.
 
-The application will retrieve the BTC price for different currencies (currently working with: ARS, USD, EUR, and DKK).
+The application will retrieve the BTC price for different currencies (currently working with: ARS, USD, EUR, and DKK), plot the data, and serve the result via an API.
 
 #### Tools / Frameworks
 

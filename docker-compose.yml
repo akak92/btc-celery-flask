@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  # main: Disparador de aplicación.
+  main:
+    build:
+      context: ./Services/Main
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on: [redis, mongo]
+    environment:
+      PYTHONUNBUFFERED: 1
+      CELERY_BROKER: redis://redis:6379/0
+    tty: true
+    command: celery -A main worker -E --loglevel=info -c 1
+
+  # downloader: Ejecutor de descargas.
+  downloader:
+    build:
+      context: ./Services/Downloader
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on: [redis]
+    environment:
+      PYTHONUNBUFFERED: 1
+      CELERY_BROKER: redis://redis:6379/0
+      MONGO_URI: "mongodb://btcadmin:btcpass@mongo:27017/?authMechanism=DEFAULT"
+    tty: true
+    command: celery -A main worker -E --loglevel=info -Q Downloader -c 4
+
+  # redis: Servicio de Queue's
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "no", "--maxmemory", "500mb", "--maxmemory-policy", "allkeys-lru"]
+    restart: unless-stopped
+
+  # mongo: Almacenamiento de resultados de consulta btc
+  mongo:
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./Services/Mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: btcadmin
+      MONGO_INITDB_ROOT_PASSWORD: btcpass
+
+  # flower: Para el control de tasks y tareas de celery.
+  flower:
+    image: mher/flower:latest
+    restart: unless-stopped
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+    environment:
+      CELERY_BROKER: redis://redis:6379/0
+      FLOWER_PORT: 5555
+      FLOWER_UNAUTHENTICATED_API: "true"
+    command: celery flower

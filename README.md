@@ -9,8 +9,7 @@ The application contains a series of services that perform the following tasks:
 - Generating a graph of the last 50 values obtained with Matplotlib.
 - Displaying graphs through an API built with Flask.
 
-Currently the defined currencies are: ARS, USD, EUR, and DKK.
-
+Currently the defined currencies are: ARS, USD, EUR, DKK, JPY, INR, RUB, MXN, CLP, UYU, BRL
 
 #### Tools / Frameworks
 

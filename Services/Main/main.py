@@ -28,7 +28,7 @@ def main_event():
         logger.info('Ha iniciado main_event.')
 
         downloader_queue = QueueInterface('Downloader')
-        currencies = ['ars', 'eur', 'usd', 'dkk']
+        currencies = ['usd','eur','ars','dkk','jpy','inr','rub','mxn','clp','uyu']
         for c in currencies:
             downloader_queue.add_to_queue(c, 'downloader')
 

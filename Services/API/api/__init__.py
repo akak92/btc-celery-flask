@@ -4,7 +4,9 @@ from flask import Flask, send_from_directory
 #   create_app
 #       Función que retorna el objeto app (Flask)
 #       Es utilizado en run.py para dar inicio a la REST API
-#       
+#
+#       Redefinimos 'static' mediante serve_image.
+#
 
 def create_app():
     app = Flask(__name__, static_folder='/app/plot_images', static_url_path='/plot_images')

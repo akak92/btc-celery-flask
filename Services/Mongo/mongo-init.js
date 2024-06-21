@@ -11,6 +11,12 @@ Pedro Díaz - Junio 2024
     Dolar Estadounidense ('btcusd')
     Euro ('btceur')
     Corona Danesa ('brcdkk')
+    Yen Japonés ('btcjpy')
+    Rusia ('btcrub')
+    Peso mexicano ('btcmxn')
+    Peso Uruguayo ('btcuyu')
+    Peso Chileno ('btcclp')
+    Rupia india ('btcinr')
 */
 
 db = db.getSiblingDB('BTC-PRICES');
@@ -19,3 +25,9 @@ db.create_collection('btcusd');
 db.create_collection('btceur');
 db.create_collection('btcbrl');
 db.create_collection('btcdkk');
+db.create_collection('btcjpy');
+db.create_collection('btcrub');
+db.create_collection('btcmxn');
+db.create_collection('btcuyu');
+db.create_collection('btcclp');
+db.create_collection('btcinr');

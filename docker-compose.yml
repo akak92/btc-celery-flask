@@ -12,7 +12,7 @@ services:
       PYTHONUNBUFFERED: 1
       CELERY_BROKER: redis://redis:6379/0
     tty: true
-    command: celery -A main worker -E --loglevel=info -c 1
+    #command: celery -A main worker -E --loglevel=info -c 1
 
   # downloader: Ejecutor de descargas.
   downloader:
@@ -27,6 +27,22 @@ services:
       MONGO_URI: "mongodb://btcadmin:btcpass@mongo:27017/?authMechanism=DEFAULT"
     tty: true
     command: celery -A main worker -E --loglevel=info -Q Downloader -c 4
+
+  # downloader: Ejecutor de descargas.
+  plotter:
+    build:
+      context: ./Services/Plotter
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on: [redis]
+    environment:
+      PYTHONUNBUFFERED: 1
+      CELERY_BROKER: redis://redis:6379/0
+      MONGO_URI: "mongodb://btcadmin:btcpass@mongo:27017/?authMechanism=DEFAULT"
+    tty: true
+    volumes:
+      - ./Data:/app/plot_images
+    command: celery -A main worker -E --loglevel=info -Q Plotter -c 4
 
   # redis: Servicio de Queue's
   redis:

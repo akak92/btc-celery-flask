@@ -44,10 +44,8 @@ def downloader(currency):
         #Creamos QueueInterfaces para Plotter.
         plotter_queue = QueueInterface('Plotter')
         #Agregamos a Queue el currency.
-        plotter_queue.add_to_queue(currency)
-
-
-
+        plotter_queue.add_to_queue(currency, 'plotter')
+        logger.info(f'Agregamos a queue {currency} para plotear.')
         logger.info('La task downloader ha finalizado.')
     except Exception as e:
         logger.error(e, exc_info=True)

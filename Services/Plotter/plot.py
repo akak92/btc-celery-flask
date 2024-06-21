@@ -19,7 +19,7 @@ def plot(currency, data):
         values.reverse()
 
         #Creamos figura.
-        plt.figure(figsize=(10, 5))
+        plt.figure(figsize=(20, 10))
         plt.plot(dates, values, marker='o')
 
         # Personalizar la gráfica

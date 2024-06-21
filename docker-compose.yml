@@ -44,6 +44,18 @@ services:
       - ./Data:/app/plot_images
     command: celery -A main worker -E --loglevel=info -Q Plotter -c 4
 
+  #servicio API escrito en flask
+  api:
+    build:
+      context: ./Services/API
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    volumes:
+      - ./Data:/app/plot_images
+    command: "python run.py"
+
   # redis: Servicio de Queue's
   redis:
     image: "redis:latest"
